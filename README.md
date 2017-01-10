@@ -4,7 +4,7 @@ This is Terraform code to bring up a fully HA Rancher environment.
 
 ## What's "Rancher"?
 
-Rancher is an open source container orchestration tool, meaning that it will make it very easy to deploy containerized applications on bare hardware as well as the major cloud providers.
+Rancher is an open source container orchestration tool, meaning that it will make it very easy to deploy containerized applications on bare hardware as well as the major cloud providers. Please visit them here: http://rancher.com/
 
 ## How do I use it?
 
