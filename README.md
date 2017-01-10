@@ -53,4 +53,4 @@ We can not be held responsible if this destroys infrastructure or incurs costs. 
 
 If you'd like help, we're available to consult. Please reach out to us: https://www.stackwire.io
 
-Copyright © 2016 Stackwire, LLC. All Rights Reserved.
+Copyright © 2017 Stackwire, LLC. All Rights Reserved.
