@@ -49,7 +49,7 @@ variable "ssl_base_name" {
 
 variable "rancher_server_version" {
   description = "The version of the Rancher server to use"
-  default     = "v1.2.2"
+  default     = "v1.3.0"
 }
 
 variable "rancher_server_instance_type" {

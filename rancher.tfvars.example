@@ -1,12 +1,30 @@
-access_key="{AWS_IAM_KEY_HERE}"
-secret_key="{AWS_SECRET_KEY_HERE}"
-aws_region="{AWS_REGION_HERE}"
+# Add your AWS access/secret keys & region
+access_key=""
+secret_key=""
+aws_region=""
+
+# If you have an existing VPC, add its ID here. If not, use our VPC module to create one (https://github.com/stackwire-io/vpc)
 vpc_id=""
+
+# The comma separated list of subnet IDs for public and private. If you use our VPC module, it will output the ids at the end of its run
 public_subnets=""
 private_subnets=""
+
+# The Route53 zone ID to use to create the Rancher host
 zone_id=""
+
+# The name of an existing keypair to use to create EC2 instances. Do not include .pem
 key_name=""
+
+# The full hostname of the resulting Rancher host (eg. rancher.stackwire.io)
 master_hostname="
+
+# Credentials for the Rancher MySQL database. These can be whatever you'd like, but the password must be > 8 characters
 master_username=""
 master_password=""
+
+# Copy the SSL .cer and .key files to the same directory this file is in and name them according to this base name
+# eg. If my SSL certificate covered rancher.stackwire.io, I could put files in this directory called rancher_stackwire_io.cer
+# and rancher_stackwire_io.key and then this field would be 'rancher_stackwire_io'. This will get uploaded to AWS
+# certificate store and attached to the ALB. If you need an SSL certificate, please use https://letsencrypt.org/
 ssl_base_name=""
