@@ -46,6 +46,11 @@ Thanks to:
 - The team at Hashicorp for creating amazing DevOps tools, including Terraform.
 - The team at Rancher Labs for making container orchestration amazingly easy.
 
+### License
+
+You are free to use this code for your own needs without restriction.
+
+
 ### Warranty
 This code comes with absolutely no warranty, either expressed or implied, and is completely unsupported. This is meant as a starting point to learn Rancher and WILL launch resources in your AWS account. Please read the code and understand what you're launching when you run apply.
 
