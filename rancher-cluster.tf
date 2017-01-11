@@ -43,7 +43,7 @@ resource "aws_alb_listener" "rancher" {
   load_balancer_arn = "${aws_alb.rancher.arn}"
   port              = "443"
   protocol          = "HTTPS"
-  ssl_policy        = "ELBSecurityPolicy-2015-05"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = "${aws_iam_server_certificate.rancher-ssl.arn}"
 
   default_action {
