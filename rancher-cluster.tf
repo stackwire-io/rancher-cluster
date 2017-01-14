@@ -18,6 +18,9 @@ resource "aws_instance" "rancher" {
   security_groups = ["${aws_security_group.rancher-server.id}"]
   subnet_id       = "${element(split(",", var.private_subnets), count.index)}"
   user_data       = "${data.template_file.rancher-install.rendered}"
+  tags {
+    Name = "rancher-server"
+  }
 }
 
 resource "aws_db_instance" "rancher" {
