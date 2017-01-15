@@ -4,31 +4,38 @@ resource "aws_security_group" "rancher-machine-private" {
   vpc_id      = "${var.vpc_id}"
 
   ingress {
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
-    security_groups = ["${aws_security_group.rancher-server.id}"]
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    from_port       = 500
-    to_port         = 500
-    protocol        = "udp"
-    security_groups = ["${aws_security_group.rancher-server.id}"]
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    from_port       = 4500
-    to_port         = 4500
-    protocol        = "udp"
-    security_groups = ["${aws_security_group.rancher-server.id}"]
+    from_port   = 500
+    to_port     = 500
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    from_port       = 2376
-    to_port         = 2376
-    protocol        = "tcp"
-    security_groups = ["${aws_security_group.rancher-server.id}"]
+    from_port   = 4500
+    to_port     = 4500
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 2376
+    to_port     = 2376
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
@@ -45,30 +52,37 @@ resource "aws_security_group" "rancher-machine-public" {
   vpc_id      = "${var.vpc_id}"
 
   ingress {
-    from_port       = 22
-    to_port         = 22
-    protocol        = "tcp"
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    from_port       = 500
-    to_port         = 500
-    protocol        = "udp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    from_port       = 4500
-    to_port         = 4500
-    protocol        = "udp"
+    from_port   = 500
+    to_port     = 500
+    protocol    = "udp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
-    from_port       = 2376
-    to_port         = 2376
-    protocol        = "tcp"
+    from_port   = 4500
+    to_port     = 4500
+    protocol    = "udp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 2376
+    to_port     = 2376
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
