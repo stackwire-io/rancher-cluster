@@ -15,6 +15,9 @@ data "aws_ami" "rancher-server" {
   owners = ["099720109477"] # Canonical
 }
 
+/* Availability zones in selected region */
+data "aws_availability_zones" "available" {}
+
 /* The user-data script used to configure the Rancher server */
 data "template_file" "rancher-install" {
   template = "${file("install.sh")}"

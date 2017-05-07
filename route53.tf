@@ -3,5 +3,5 @@ resource "aws_route53_record" "rancher" {
   name    = "${var.master_hostname}"
   type    = "CNAME"
   ttl     = "300"
-  records = ["${aws_alb.rancher.dns_name}"]
+  records = ["${aws_elb.rancher.dns_name}"]
 }
