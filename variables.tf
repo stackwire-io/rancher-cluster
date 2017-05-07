@@ -11,20 +11,16 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "acm_ssl_cert_arn" {
+  description = "The AWS ARN of the SSL certificate to use in ACM"
+}
+
 variable "key_name" {
   description = "Name of the SSH keypair to use in AWS."
 }
 
-variable "vpc_id" {
-  description = "The ID of the VPC to build infrastructure in"
-}
-
-variable "public_subnets" {
-  description = "A list of IDs for the public subnets within the VPC"
-}
-
-variable "private_subnets" {
-  description = "A list of IDs for the private subnets within the VPC"
+variable "environment" {
+  description = "The name of the environment"
 }
 
 variable "zone_id" {
@@ -32,24 +28,21 @@ variable "zone_id" {
 }
 
 variable "master_hostname" {
-  description = "The full hostname of the Rancher server. Must exist within the Route53 zone"
+  description = "The hostname of the Rancher server (eg. rancher)."
 }
 
 variable "master_username" {
   description = "The username to use for the Rancher MySQL database"
 }
 
-variable "master_password" {
-  description = "The password to use for the Rancher MySQL database"
-}
-
-variable "ssl_base_name" {
-  description = "The base filename of the SSL certificate. Will look for files with .cer & .key"
+variable "multi_az" {
+  description = "Whether you want your database to be configured as Multi-AZ"
+  default = false
 }
 
 variable "rancher_server_version" {
   description = "The version of the Rancher server to use"
-  default     = "v1.3.1"
+  default     = "v1.6.0"
 }
 
 variable "rancher_server_instance_type" {

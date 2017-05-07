@@ -24,11 +24,36 @@ data "template_file" "rancher-install" {
     db_host         = "${aws_db_instance.rancher.address}"
     db_port         = "${aws_db_instance.rancher.port}"
     db_user         = "${var.master_username}"
-    db_password     = "${var.master_password}"
+    db_password     = "${random_id.mysql.hex}"
   }
 }
 
 /* Give us access to the VPC that we're configured for */
 data "aws_vpc" "vpc" {
-  id = "${var.vpc_id}"
+  filter {
+    name = "tag:Environment"
+    values = ["${var.environment}"]
+  }
+}
+
+/* Grab the VPC's public subnet IDs */
+data "aws_subnet_ids" "public" {
+  vpc_id = "${data.aws_vpc.vpc.id}"
+
+  tags {
+    SubnetType = "public"
+  }
+}
+
+/* Grab the VPC's private subnet IDs */
+data "aws_subnet_ids" "private" {
+  vpc_id = "${data.aws_vpc.vpc.id}"
+
+  tags {
+    SubnetType = "private"
+  }
+}
+
+data "aws_route53_zone" "main" {
+  zone_id = "${var.zone_id}"
 }

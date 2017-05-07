@@ -1,7 +1,7 @@
 resource "aws_security_group" "rancher-machine-private" {
   name        = "rancher-machine-private"
   description = "Allow outbound to all, inbound on 500/4500 UDP, 2376 TCP"
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = "${data.aws_vpc.vpc.id}"
 
   ingress {
     from_port   = -1
@@ -49,7 +49,7 @@ resource "aws_security_group" "rancher-machine-private" {
 resource "aws_security_group" "rancher-machine-public" {
   name        = "rancher-machine-public"
   description = "Allow outbound to all, inbound on 500/4500 UDP, 2376 TCP, and 80/443 TCP (public)"
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = "${data.aws_vpc.vpc.id}"
 
   ingress {
     from_port   = -1

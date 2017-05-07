@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-terraform plan -var-file rancher.tfvars -state rancher.tfstate
+terraform plan -var-file ${1}.tfvars -state ${1}.tfstate

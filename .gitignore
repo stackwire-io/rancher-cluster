@@ -1,5 +1,7 @@
 *.key
 *.cer
+*.pem
+.terraform/**
 *.tfvars
 *.tfstate
 *.tfstate.backup

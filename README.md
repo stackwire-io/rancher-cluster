@@ -16,15 +16,16 @@ brew install terraform
 
 If not, visit https://terraform.io and download it for your platform.
 
-Next, copy the `rancher.tfvars.example` to `rancher.tfvars` and fill in the values. The file is documented, so just add the required values.
+This code requires you to have already created a VPC using our VPC terraform repository here: https://github.com/stackwire-io/vpc.git
 
-You will need an SSL certificate (use Let's Encrypt - they're free!) for {master_hostname}. So, for example, if my {master_hostname} was set to rancher.stackwire.io, I would get an SSL certificate for rancher.stackwire.io. Put the certificate and keys in this directory and name them {ssl_base_name}.cer and {ssl_base_name}.key
-You will need an existing VPC with public and private subnets. You could also use your AWS account's default VPC and use the public subnet IDs for both public and private subnet variables.
+This will create a VPC, internet gateway, NAT gateways and public/private subnets and tag them so that they can be found dynamically. You will also need to create an SSL certificate in AWS cert manager.
+
+Once your VPC has been created, copy the rancher.tfvars.example as rancher.tfvars and fill in the values. For `environment` use the same environment specified in the VPC configs. This is how the VPC & subnet IDs are located.
 
 Run the plan command:
 
 ```shell
-./plan.sh
+./plan.sh rancher
 ```
 
 This will show you what Terraform will do when you run it for real. If you see any errors, correct them and try again.
@@ -32,14 +33,14 @@ This will show you what Terraform will do when you run it for real. If you see a
 When it looks right, run apply:
 
 ```shell
-./apply.sh
+./apply.sh rancher
 ```
 
-In a few minutes, you will have a fully working Rancher HA environment that's ready to run containerized applications. It will take a little while for the instances to spin up, install Docker and launch Rancher. It should be reachable via https://{master_hostname}
+In a few minutes, you will have a fully working Rancher HA environment that's ready to run containerized applications. It will take a little while for the instances to spin up, install Docker and launch Rancher. It should be reachable via https://{master_hostname} in the domain specified by {zone_id}
 
-The first thing you'll want to do is configure authentication since it's configured with no authentication to start. To configure access control: http://docs.rancher.com/rancher/v1.3/en/configuration/access-control/
+The first thing you'll want to do is configure authentication since it's configured with no authentication to start. To configure access control: https://docs.rancher.com/rancher/v1.6/en/configuration/access-control/
 
-*NOTE* This is not really production ready since the database is not configured for Multi-AZ, but it can easily be converted to Multi-AZ by changing the aws_db_instance resource.
+*NOTE* By default the MySQL RDS instance is not configured for Multi-AZ. If you want your database instance to be highly available, set the `multi_az` variable to `true`.
 
 Thanks to:
 

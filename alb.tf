@@ -3,7 +3,7 @@ resource "aws_alb_listener" "rancher" {
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2015-05"
-  certificate_arn   = "${aws_iam_server_certificate.rancher-ssl.arn}"
+  certificate_arn   = "${var.acm_ssl_cert_arn}"
 
   default_action {
     target_group_arn = "${aws_alb_target_group.rancher.arn}"
@@ -15,14 +15,14 @@ resource "aws_alb" "rancher" {
   name            = "rancher-alb"
   internal        = false
   security_groups = ["${aws_security_group.alb.id}"]
-  subnets         = ["${split(",", var.public_subnets)}"]
+  subnets         = ["${data.aws_subnet_ids.public.ids}"]
 }
 
 resource "aws_alb_target_group" "rancher" {
   name     = "rancher-alb-target-group"
   port     = 8080
   protocol = "HTTP"
-  vpc_id   = "${var.vpc_id}"
+  vpc_id   = "${data.aws_vpc.vpc.id}"
 }
 
 resource "aws_alb_target_group_attachment" "rancher" {
@@ -36,16 +36,7 @@ resource "aws_alb_target_group_attachment" "rancher" {
 resource "aws_security_group" "alb" {
   name        = "rancher-alb"
   description = "Allow inbound on 80 and 443 from anywhere. Outbound on 8080 to the rancher server"
-  vpc_id      = "${var.vpc_id}"
-}
-
-resource "aws_security_group_rule" "alb-ingress-http" {
-  type              = "ingress"
-  from_port         = 80
-  to_port           = 80
-  protocol          = "tcp"
-  security_group_id = "${aws_security_group.alb.id}"
-  cidr_blocks       = ["0.0.0.0/0"]
+  vpc_id      = "${data.aws_vpc.vpc.id}"
 }
 
 resource "aws_security_group_rule" "alb-ingress-https" {

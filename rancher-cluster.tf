@@ -4,7 +4,7 @@ resource "aws_instance" "rancher" {
   instance_type   = "${var.rancher_server_instance_type}"
   key_name        = "${var.key_name}"
   security_groups = ["${aws_security_group.rancher-server.id}"]
-  subnet_id       = "${element(split(",", var.private_subnets), count.index)}"
+  subnet_id       = "${element(data.aws_subnet_ids.private.ids, count.index)}"
   user_data       = "${data.template_file.rancher-install.rendered}"
 
   tags {
@@ -15,7 +15,7 @@ resource "aws_instance" "rancher" {
 resource "aws_security_group" "rancher-server" {
   name        = "rancher-server"
   description = "Allow outbound to all, inbound on 8080 from ALB, HA inbound on 9345"
-  vpc_id      = "${var.vpc_id}"
+  vpc_id      = "${data.aws_vpc.vpc.id}"
 }
 
 resource "aws_security_group_rule" "rancher-server-alb" {
