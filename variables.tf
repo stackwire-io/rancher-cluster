@@ -37,7 +37,7 @@ variable "master_username" {
 
 variable "multi_az" {
   description = "Whether you want your database to be configured as Multi-AZ"
-  default = false
+  default     = false
 }
 
 variable "rancher_server_version" {

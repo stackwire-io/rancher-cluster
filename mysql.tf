@@ -11,8 +11,8 @@ resource "aws_db_instance" "rancher" {
   parameter_group_name   = "default.mysql5.7"
   vpc_security_group_ids = ["${aws_security_group.mysql-server.id}"]
   storage_type           = "gp2"
-  skip_final_snapshot     = true
-  multi_az              = "${var.multi_az}"
+  skip_final_snapshot    = true
+  multi_az               = "${var.multi_az}"
 }
 
 resource "aws_db_subnet_group" "rancher" {

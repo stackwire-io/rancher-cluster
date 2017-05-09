@@ -34,7 +34,7 @@ data "template_file" "rancher-install" {
 /* Give us access to the VPC that we're configured for */
 data "aws_vpc" "vpc" {
   filter {
-    name = "tag:Environment"
+    name   = "tag:Environment"
     values = ["${var.environment}"]
   }
 }
