@@ -1,11 +1,11 @@
 resource "aws_instance" "rancher" {
-  count           = "${var.rancher_cluster_size}"
-  ami             = "${data.aws_ami.rancher-server.id}"
-  instance_type   = "${var.rancher_server_instance_type}"
-  key_name        = "${var.key_name}"
-  security_groups = ["${aws_security_group.rancher-server.id}"]
-  subnet_id       = "${element(data.aws_subnet_ids.private.ids, count.index)}"
-  user_data       = "${data.template_file.rancher-install.rendered}"
+  count                  = "${var.rancher_cluster_size}"
+  ami                    = "${data.aws_ami.rancher-server.id}"
+  instance_type          = "${var.rancher_server_instance_type}"
+  key_name               = "${var.key_name}"
+  vpc_security_group_ids = ["${aws_security_group.rancher-server.id}"]
+  subnet_id              = "${element(data.aws_subnet_ids.private.ids, count.index)}"
+  user_data              = "${data.template_file.rancher-install.rendered}"
 
   tags {
     Name = "rancher-server"
